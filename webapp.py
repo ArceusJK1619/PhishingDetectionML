@@ -7,12 +7,12 @@ from bs4 import BeautifulSoup
 
 #Importing the three models for the run
 
-with open('LinearModel.pkl', 'rb') as model_file:#linear reggression model
-    lr_model = pickle.load(model_file)
+# with open('LinearModel.pkl', 'rb') as model_file:#linear reggression model
+#     lr_model = pickle.load(model_file)
 with open('LogisticModel.pkl', 'rb') as model_file:#logistic reggression model
     log_reg_model = pickle.load(model_file)
-with open('SVMmodel.pkl', 'rb') as model_file:#SVM model
-    svm_model = pickle.load(model_file)
+# with open('SVMmodel.pkl', 'rb') as model_file:#SVM model
+#     svm_model = pickle.load(model_file)
 
 
 #Defining the logics required to process the url
@@ -111,9 +111,9 @@ def count_empty_references(url):
         print(f"Error fetching or parsing HTML content: {e}")
         return None
 def classify(x):
-    if x == 1:
+    if x == [1] :
         return "The site looks safe to procced !!! 👍👍"
-    else :
+    elif x == [0]:
         return "The site seems suspicious proceed with caution 💀💀💀"
 
 def check_url_safety(url):
@@ -137,7 +137,6 @@ def main():
         """,
         unsafe_allow_html=True
     )
-    model_selection = st.sidebar.selectbox('Choose Model', ('Linear Regression', 'Logistic Regression', 'SVM Model'))
 
     st.title("URL Safety Checker")
     url = st.text_input("Enter URL:")
@@ -159,18 +158,15 @@ def main():
 
     inputs = [[a,c,e,f,g,h,i,j,d,k,l,m,o,n]]
     if st.button("Check Safety"):
-        if model_selection == "Linear Regression":
-            prediction = lr_model.predict(inputs)
-            phisi = classify(int(prediction[0]))
-            st.write(phisi)
-        elif model_selection == "Logistic Regression":
-            prediction = log_reg_model.predict(inputs)
-            phisi = classify(int(prediction[0]))
-            st.write(phisi)
-        elif model_selection == "SVM Model":
-            prediction = svm_model.predict(inputs)
-            phisi = classify(int(prediction[0]))
-            st.write(phisi)
+        try:
+            predict = log_reg_model.predict(inputs)
+            if predict == [0]:
+                st.write("Doesnt Look good 💀💀💀")
+            if predict == [1]:
+                st.write("Looks safe 👍👍👍")
+        except Exception as e:
+            st.write(f"Scince error \n{e} \n we think the site is not safe 🚫🚫🚫")
+
 
 
 if __name__ == "__main__":
