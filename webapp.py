@@ -35,6 +35,21 @@ def count_letters_in_url(url):
 def count_digits_in_url(url):
     num_digits = sum(c.isdigit() for c in url)
     return num_digits
+def count_equals_in_url(url):
+    num_equals = url.count("=")
+    
+    return num_equals
+def count_QMarks_in_url(url):
+    num_qmark = url.count("?")
+    return num_qmark
+def count_ampersand_in_url(url):
+    num_ampersand = url.count("&")
+    return num_ampersand
+def count_specialCharachters_in_url(url):
+    special_characters = "!@#$%^&*()-_+=[]{}|;:,.<>?/~"
+    num_special_chars = sum(1 for char in url if char in special_characters)
+    
+    return num_special_chars
 
 
 
