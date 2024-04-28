@@ -123,11 +123,11 @@ def predict(url):
     inputs = get_params(url)
     try:
         predict = log_reg_model.predict(inputs)
-        if predict == [0]:
-            prediction = "Doesnt Look good 💀💀💀"
         if predict == [1]:
+            prediction = "Doesnt Look good 💀💀💀"
+        if predict == [0]:
             prediction = "Looks safe 👍👍👍"
     except Exception as e:
-        prediction = f"Scince error \n{e} \n we think the site is not safe 🚫🚫🚫"
+        prediction = f"Scince error we think the site is not safe 🚫🚫🚫"
     
     return prediction
