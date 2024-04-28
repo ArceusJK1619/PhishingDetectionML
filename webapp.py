@@ -137,19 +137,41 @@ def main():
         """,
         unsafe_allow_html=True
     )
+    model_selection = st.sidebar.selectbox('Choose Model', ('Linear Regression', 'Logistic Regression', 'SVM Model'))
 
     st.title("URL Safety Checker")
     url = st.text_input("Enter URL:")
+    a = url_length(url)
+    b = extract_domain(url)
+    c = domain_length(b)
+    d = is_https(url)
+    e = count_letters_in_url(url)
+    f = count_digits_in_url(url)
+    g = count_equals_in_url(url)
+    h = count_QMarks_in_url(url)
+    i = count_ampersand_in_url(url)
+    j = count_specialCharachters_in_url(url)
+    k = count_css_files_in_url(url)
+    l = count_js_files_in_url(url)
+    m = count_self_referencing_links(url)
+    n = count_external_links(url)
+    o = count_empty_references(url)
 
+    inputs = [[a,c,e,f,g,h,i,j,d,k,l,m,o,n]]
     if st.button("Check Safety"):
-        if url:
-            is_safe = check_url_safety(url)
-            if is_safe:
-                st.success("The URL is safe.")
-            else:
-                st.error("The URL is not safe.👍👍👍")
-        else:
-            st.warning("Please enter a URL.")
+        if model_selection == "Linear Regression":
+            prediction = lr_model.predict(inputs)
+            phisi = classify(int(prediction[0]))
+            st.write(phisi)
+        elif model_selection == "Logistic Regression":
+            prediction = log_reg_model.predict(inputs)
+            phisi = classify(int(prediction[0]))
+            st.write(phisi)
+        elif model_selection == "SVM Model":
+            prediction = svm_model.predict(inputs)
+            phisi = classify(int(prediction[0]))
+            st.write(phisi)
+
 
 if __name__ == "__main__":
     main()
