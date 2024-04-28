@@ -121,13 +121,17 @@ def get_params(url):
 
 def predict(url):
     inputs = get_params(url)
+    color = None
     try:
         predict = log_reg_model.predict(inputs)
         if predict == [1]:
             prediction = "Doesnt Look good 💀💀💀"
+            color = "Red"
         if predict == [0]:
             prediction = "Looks safe 👍👍👍"
+            color = "Green"
     except Exception as e:
-        prediction = f"Scince error we think the site is not safe 🚫🚫🚫"
+        prediction = f"Scince error: \n{e} \n we think the site is not safe 🚫🚫🚫"
+        color = "Red"
     
-    return prediction
+    return prediction , color
