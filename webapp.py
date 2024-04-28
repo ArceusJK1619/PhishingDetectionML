@@ -93,6 +93,23 @@ def count_external_links(url):
     except Exception as e:
         print(f"Error fetching or parsing HTML content: {e}")
         return None
+def count_empty_references(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        empty_ref_tags = soup.find_all('a', href=False)
+        num_empty_refs = len(empty_ref_tags)
+        return num_empty_refs
+    except Exception as e:
+        print(f"Error fetching or parsing HTML content: {e}")
+        return None
+def classify(x):
+    if x == 1:
+        return True
+    else :
+        return False 
+    
 
 
 
