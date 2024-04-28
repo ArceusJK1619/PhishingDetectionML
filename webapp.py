@@ -112,9 +112,9 @@ def count_empty_references(url):
         return None
 def classify(x):
     if x == 1:
-        return True
+        return "The site looks safe to procced !!! 👍👍"
     else :
-        return False 
+        return "The site seems suspicious proceed with caution 💀💀💀"
 
 def check_url_safety(url):
     try:
@@ -147,7 +147,7 @@ def main():
             if is_safe:
                 st.success("The URL is safe.")
             else:
-                st.error("The URL is not safe.")
+                st.error("The URL is not safe.👍👍👍")
         else:
             st.warning("Please enter a URL.")
 
